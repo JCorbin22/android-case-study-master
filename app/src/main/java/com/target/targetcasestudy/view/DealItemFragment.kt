@@ -1,4 +1,4 @@
-package com.target.targetcasestudy.ui
+package com.target.targetcasestudy.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
