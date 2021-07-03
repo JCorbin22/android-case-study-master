@@ -1,4 +1,4 @@
-package com.target.targetcasestudy.data
+package com.target.targetcasestudy.model
 
 // TODO this can be deleted once you start fetching the data from the API
 object StaticData {

@@ -1,6 +1,6 @@
 package com.target.targetcasestudy
 
-import com.target.targetcasestudy.data.validateCreditCard
+import com.target.targetcasestudy.model.validateCreditCard
 import org.junit.Assert
 import org.junit.Test
 
