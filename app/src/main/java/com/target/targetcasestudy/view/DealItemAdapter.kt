@@ -7,15 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.model.Product
-import com.target.targetcasestudy.model.Products
 
 class DealItemAdapter(private val products: List<Product>) : RecyclerView.Adapter<DealItemViewHolder>() {
-
-  //private lateinit var products: List<Product>
-
-//  fun setProducts(products: Products) {
-//    this.products = products.products
-//  }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealItemViewHolder {
     val inflater = LayoutInflater.from(parent.context)
@@ -29,18 +22,12 @@ class DealItemAdapter(private val products: List<Product>) : RecyclerView.Adapte
 
   override fun onBindViewHolder(viewHolder: DealItemViewHolder, position: Int) {
     val item = products[position]
-    viewHolder.productTitle = item.title
-    viewHolder.productSalePrice = item.salePrice?.displayString
+    viewHolder.productTitleTextView.text = item.title
+    viewHolder.productSalePriceTextView.text = item.salePrice?.displayString ?: item.regularPrice.displayString
   }
 }
 
 class DealItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-  var productTitle: String? = null
-  var productSalePrice: String? = null
-
-  init {
-    itemView.findViewById<TextView>(R.id.deal_list_item_title)
-    itemView.findViewById<TextView>(R.id.deal_list_item_price)
-  }
+  var productTitleTextView: TextView = itemView.findViewById(R.id.deal_list_item_title)
+  var productSalePriceTextView: TextView = itemView.findViewById(R.id.deal_list_item_price)
 }

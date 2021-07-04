@@ -1,5 +1,7 @@
 package com.target.targetcasestudy.model
 
-data class Price(val amountInCents: Int,
-                 val currencySymbol: String,
-                 val displayString: String)
+import com.google.gson.annotations.SerializedName
+
+data class Price(@SerializedName("amount_in_cents") val amountInCents: Int,
+                 @SerializedName("currency_symbol") val currencySymbol: String,
+                 @SerializedName("display_string") val displayString: String)
