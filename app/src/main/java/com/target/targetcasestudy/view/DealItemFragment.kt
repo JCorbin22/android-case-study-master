@@ -8,22 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.model.Product
 import com.target.targetcasestudy.viewmodel.DealItemViewModel
 import com.target.targetcasestudy.viewmodel.ProductViewModelFactory
-
 
 class DealItemFragment : DialogFragment() {
 
   lateinit var progressBar: ProgressBar
   lateinit var titleTextView: TextView
   lateinit var priceTextView: TextView
+  lateinit var productImageView: ImageView
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -55,6 +57,7 @@ class DealItemFragment : DialogFragment() {
     progressBar = view.findViewById(R.id.details_progress_bar)
     titleTextView = view.findViewById(R.id.deal_list_item_title)
     priceTextView = view.findViewById(R.id.deal_list_item_price)
+    productImageView = view.findViewById(R.id.deal_list_item_image_view)
     return view
   }
 
@@ -70,6 +73,11 @@ class DealItemFragment : DialogFragment() {
     if(product != null) {
       titleTextView.text = product.title
       priceTextView.text = product.salePrice?.displayString ?: product.regularPrice.displayString
+      if(product.imageUrl != null) {
+        Picasso.get().load(product.imageUrl)
+          .placeholder(R.drawable.ic_launcher_foreground)
+          .into(productImageView)
+      }
     } else {
       Toast.makeText(
         this.context,

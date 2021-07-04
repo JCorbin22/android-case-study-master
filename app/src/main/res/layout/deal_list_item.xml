@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/deal_list_item"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -6,7 +6,7 @@
   android:orientation="horizontal"
   android:padding="5dp">
 
-  <LinearLayout
+  <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
@@ -16,12 +16,11 @@
       android:id="@+id/deal_list_item_image_view"
       android:layout_width="@dimen/deal_list_item_image_size"
       android:layout_height="@dimen/deal_list_item_image_size"
-      android:src="@drawable/ic_launcher_foreground"
-      android:tint="@color/gray_color"/>
+      android:src="@drawable/ic_launcher_foreground"/>
 
-  </LinearLayout>
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
-  <LinearLayout
+  <androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
@@ -32,7 +31,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textSize="18sp" />
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:background="@color/gray_color" />
@@ -41,6 +40,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="18sp" />
-  </LinearLayout>
+  </androidx.appcompat.widget.LinearLayoutCompat>
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
