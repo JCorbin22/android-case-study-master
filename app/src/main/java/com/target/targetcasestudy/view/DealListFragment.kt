@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.target.targetcasestudy.R
-import com.target.targetcasestudy.model.Product
+import com.target.targetcasestudy.interfaces.IDealClickDelegate
 import com.target.targetcasestudy.model.Products
 import com.target.targetcasestudy.viewmodel.DealListViewModel
 
-class DealListFragment : Fragment() {
+class DealListFragment : Fragment(), IDealClickDelegate {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var progressBar: ProgressBar
@@ -42,16 +42,23 @@ class DealListFragment : Fragment() {
   private fun updateProgressBar(isLoading: Boolean) {
     if(isLoading) {
       progressBar.visibility = View.VISIBLE
-      // recyclerView.visibility = View.GONE
     } else {
       progressBar.visibility = View.GONE
-      // recyclerView.visibility = View.VISIBLE
     }
   }
 
   private fun updateDealsList(products: Products) {
     productsAdapter = DealItemAdapter(products.products)
+    productsAdapter.dealClickDelegate = this
     recyclerView.layoutManager = LinearLayoutManager(context)
     recyclerView.adapter = productsAdapter
+  }
+
+  override fun dealClicked(dealId: Int) {
+    // launch fragment
+    val dealItemFragment = DealItemFragment().apply { bundleOf(Pair("dealId", dealId)) }
+    val fragmentManager = parentFragmentManager
+    fragmentManager.beginTransaction()
+    dealItemFragment.show(fragmentManager, "DEAL_ITEM_DETAIL")
   }
 }
