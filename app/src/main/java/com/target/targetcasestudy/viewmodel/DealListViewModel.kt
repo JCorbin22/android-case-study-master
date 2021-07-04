@@ -53,7 +53,10 @@ class DealListViewModel : ViewModel() {
 
             override fun onFailure(call: Call<Products>, t: Throwable) {
                 // todo cancel the progress bar and then show a toast
-                Log.e("UH OH!", t.message.toString())
+                _isLoading.value = false
+                _dealsList.value = null
+                Log.e(this.javaClass.name.toString(),
+                    "Failed to retrieve product list: ${t.message.toString()}")
             }
         })
     }

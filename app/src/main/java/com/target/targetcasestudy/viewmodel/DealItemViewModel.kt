@@ -1,6 +1,7 @@
 package com.target.targetcasestudy.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,12 +15,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DealItemViewModel(): ViewModel() {
+class DealItemViewModel(private val dealId: Int): ViewModel() {
 
     private var _isLoading = MutableLiveData<Boolean>().apply { value = false }
     private val _dealDetails: MutableLiveData<Product> by lazy {
         MutableLiveData<Product>().also {
-    //        retrieveProductDetails(dealId)
+            retrieveProductDetails(dealId)
         }
     }
 
@@ -27,8 +28,7 @@ class DealItemViewModel(): ViewModel() {
         return _isLoading
     }
 
-    fun getDeals(dealId: Int): MutableLiveData<Product> {
-        // fetch the deals! Implement retrofit!
+    fun getDeals(): MutableLiveData<Product> {
         return _dealDetails
     }
 
@@ -52,8 +52,10 @@ class DealItemViewModel(): ViewModel() {
             }
 
             override fun onFailure(call: Call<Product>, t: Throwable) {
-                // todo cancel the progress bar and then show a toast
-                Log.e("UH OH!", t.message.toString())
+                _isLoading.value = false
+                _dealDetails.value = null
+                Log.e(this.javaClass.name.toString(),
+                    "Failed to retrieve product list: ${t.message.toString()}")
             }
         })
     }

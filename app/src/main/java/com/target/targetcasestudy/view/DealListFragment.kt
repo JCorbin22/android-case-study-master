@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,16 +48,26 @@ class DealListFragment : Fragment(), IDealClickDelegate {
     }
   }
 
-  private fun updateDealsList(products: Products) {
-    productsAdapter = DealItemAdapter(products.products)
-    productsAdapter.dealClickDelegate = this
-    recyclerView.layoutManager = LinearLayoutManager(context)
-    recyclerView.adapter = productsAdapter
+  private fun updateDealsList(products: Products?) {
+    if(products != null) {
+      productsAdapter = DealItemAdapter(products.products)
+      productsAdapter.dealClickDelegate = this
+      recyclerView.layoutManager = LinearLayoutManager(context)
+      recyclerView.adapter = productsAdapter
+    } else {
+      Toast.makeText(
+        this.context,
+        "Unable to retrieve product list, please try again later",
+        Toast.LENGTH_SHORT).show()
+    }
+
   }
 
   override fun dealClicked(dealId: Int) {
     // launch fragment
-    val dealItemFragment = DealItemFragment().apply { bundleOf(Pair("dealId", dealId)) }
+    val dealItemFragment = DealItemFragment().also {
+      it.arguments = bundleOf(Pair("dealId", dealId))
+    }
     val fragmentManager = parentFragmentManager
     fragmentManager.beginTransaction()
     dealItemFragment.show(fragmentManager, "DEAL_ITEM_DETAIL")
