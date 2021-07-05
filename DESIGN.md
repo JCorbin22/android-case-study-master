@@ -26,7 +26,7 @@ TO-DO List:
 11: Optional: Cache Service Responses
 5. Optional: Theme the progress bar as Target (maybe use animations)
 
-- Get a credit card validator algorithm going for the validator
-- Get the credit card transactions "working" (We may need some kind of reactive framework to enable/disable submit based on entry)
---- dynamic validation on field
+- Get a credit card validator algorithm going for the validator **DONE**
+- Get the credit card transactions "working" (We may need some kind of reactive framework to enable/disable submit based on entry) **DONE**
+--- dynamic validation on field **DONE**
 - Write some Espresso tests! 
