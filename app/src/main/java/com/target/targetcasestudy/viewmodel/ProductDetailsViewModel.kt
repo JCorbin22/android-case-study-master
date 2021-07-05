@@ -1,14 +1,11 @@
 package com.target.targetcasestudy.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.target.targetcasestudy.model.Product
-import com.target.targetcasestudy.model.Products
 import com.target.targetcasestudy.services.ProductDetailsService
-import com.target.targetcasestudy.services.ProductsService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,22 +21,28 @@ class ProductDetailsViewModel(private val dealId: Int): ViewModel() {
         }
     }
 
+    // LiveData representing whether data is being loaded or not
     fun isLoading(): LiveData<Boolean> {
         return _isLoading
     }
 
+    // LiveData representing Product data
     fun getDeals(): MutableLiveData<Product> {
         return _dealDetails
     }
 
-    private fun retrieveProductDetails(dealId: Int) {
+    /**
+     * Fetches product details from a Retrofit service using the product ID.
+     * @param productId: the ID of the product to be retrieved.
+     */
+    private fun retrieveProductDetails(productId: Int) {
         _isLoading.value = true
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.target.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(ProductDetailsService::class.java)
-        val products = service.retrieveProductDetails(dealId)
+        val products = service.retrieveProductDetails(productId)
         products.enqueue(object : Callback<Product> {
             override fun onResponse(
                 call: Call<Product>,

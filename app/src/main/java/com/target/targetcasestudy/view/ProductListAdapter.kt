@@ -15,21 +15,21 @@ import java.util.*
 
 class DealItemAdapter(
   private val products: List<Product>
-  ) : RecyclerView.Adapter<DealItemViewHolder>() {
+  ) : RecyclerView.Adapter<ProductItemViewHolder>() {
 
   lateinit var dealClickDelegate: IDealClickDelegate
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealItemViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductItemViewHolder {
     val inflater = LayoutInflater.from(parent.context)
     val view = inflater.inflate(R.layout.product_list_item, parent, false)
-    return DealItemViewHolder(view)
+    return ProductItemViewHolder(view)
   }
 
   override fun getItemCount(): Int {
     return products.size
   }
 
-  override fun onBindViewHolder(viewHolder: DealItemViewHolder, position: Int) {
+  override fun onBindViewHolder(viewHolder: ProductItemViewHolder, position: Int) {
     val item = products[position]
 
     // Product details
@@ -60,7 +60,7 @@ class DealItemAdapter(
   }
 }
 
-class DealItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ProductItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
   var dealItemLayout: LinearLayoutCompat = itemView.findViewById(R.id.product_list_item_layout)
   var productTitleTextView: TextView = itemView.findViewById(R.id.product_list_item_title_tv)
   var productSalePriceTextView: TextView = itemView.findViewById(R.id.product_list_item_price_tv)

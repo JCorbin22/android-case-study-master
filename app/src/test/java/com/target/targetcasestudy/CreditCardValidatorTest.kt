@@ -30,6 +30,22 @@ class CreditCardValidatorTest {
     }
   }
 
+  @Test
+  fun `is credit card number invalid length`() {
+    Assert.assertFalse(
+      "Credit card less than 13 digits, or greater than 19 digits should yield false",
+      validateCreditCard("12345678910"))
+    Assert.assertFalse(
+      "Credit card less than 13 digits, or greater than 19 digits should yield false",
+      validateCreditCard("12345678910198765421"))
+  }
+
+  @Test
+  fun `is credit card number empty`() {
+    Assert.assertFalse("Empty credit card number should return false",
+      validateCreditCard(""))
+  }
+
   companion object {
     private val VALID_CC_NUMBERS = listOf(
       "4716299837005151",

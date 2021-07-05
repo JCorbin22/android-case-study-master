@@ -9,10 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -21,6 +18,11 @@ import com.target.targetcasestudy.model.Product
 import com.target.targetcasestudy.viewmodel.ProductDetailsViewModel
 import com.target.targetcasestudy.viewmodel.ProductViewModelFactory
 
+/**
+ * Product details for a specific item represented by a full screen DialogFragment.
+ * Details will be loaded from a Retrofit service by using a product ID, provided by the
+ * previous product list fragment when an item is selected.
+ */
 class ProductDetailsFragment : DialogFragment() {
 
   private lateinit var progressBar: ProgressBar
@@ -30,6 +32,8 @@ class ProductDetailsFragment : DialogFragment() {
   private lateinit var regPriceLabel: TextView
   private lateinit var descriptionTextView: TextView
   private lateinit var productImageView: ImageView
+  private lateinit var addToListButton: Button
+  private lateinit var addToCartButton: Button
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -46,7 +50,11 @@ class ProductDetailsFragment : DialogFragment() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    val viewModel = ViewModelProvider(this, ProductViewModelFactory(arguments?.getInt("dealId")!!)).get(ProductDetailsViewModel::class.java) // do something nicer
+    // Retrieve the ViewModel for this view
+    val viewModel = ViewModelProvider(this,
+      ProductViewModelFactory(arguments?.getInt("dealId")!!)) // enforcing non-null in list view
+      .get(ProductDetailsViewModel::class.java)
+    // Observe LiveData in ViewModel
     viewModel.isLoading().observe(this, this::updateProgressBar)
     viewModel.getDeals().observe(this, this::updateProductDetails)
     super.onCreate(savedInstanceState)
@@ -56,7 +64,6 @@ class ProductDetailsFragment : DialogFragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    // Inflate the layout for this fragment
     val view = inflater.inflate(R.layout.fragment_product_details, container, false)
     progressBar = view.findViewById(R.id.details_progress_bar)
     titleTextView = view.findViewById(R.id.product_detail_title_tv)
@@ -65,9 +72,15 @@ class ProductDetailsFragment : DialogFragment() {
     regPriceLabel = view.findViewById(R.id.reg_price_label)
     descriptionTextView = view.findViewById(R.id.product_detail_desc_tv)
     productImageView = view.findViewById(R.id.product_detail_image_view)
+    addToListButton = view.findViewById(R.id.add_to_list_button)
+    addToCartButton = view.findViewById(R.id.add_to_cart_button)
     return view
   }
 
+  /**
+   * Shows or hides the progress bar depending on the LiveData object value.
+   * @param isLoading: The Boolean value indicating whether or not the data is still loading.
+   */
   private fun updateProgressBar(isLoading: Boolean) {
     if(isLoading) {
       progressBar.visibility = View.VISIBLE
@@ -76,8 +89,13 @@ class ProductDetailsFragment : DialogFragment() {
     }
   }
 
+  /**
+   * Updates the UI with the relevant product details when the LiveData object is updated.
+   * @param product: The Product object retrieved from the LiveData object.
+   */
   private fun updateProductDetails(product: Product?) {
     if(product != null) {
+      // Set product details
       titleTextView.text = product.title
       descriptionTextView.text = product.description
       if(product.salePrice != null) {
@@ -92,13 +110,24 @@ class ProductDetailsFragment : DialogFragment() {
         regPriceTextView.visibility = View.GONE
       }
 
+      // Set image details
       productImageView.contentDescription = "Image of product ${product.title}"
       if(product.imageUrl != null) {
         Picasso.get().load(product.imageUrl)
           .placeholder(R.drawable.ic_launcher_foreground)
           .into(productImageView)
       }
+
+      addToListButton.setOnClickListener {
+        // Future: add to a caching repository
+        dialog?.dismiss()
+      }
+      addToCartButton.setOnClickListener {
+        // Future: add to a caching repository
+        dialog?.dismiss()
+      }
     } else {
+      // If the data came back null, display a toast message
       Toast.makeText(
         this.context,
         "Unable to retrieve product details, please try again later",

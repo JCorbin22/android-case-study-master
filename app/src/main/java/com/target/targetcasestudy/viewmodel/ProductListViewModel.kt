@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.target.targetcasestudy.model.Product
 import com.target.targetcasestudy.model.Products
-import com.target.targetcasestudy.model.ProductsResponse
 import com.target.targetcasestudy.services.ProductsService
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,15 +21,20 @@ class ProductListViewModel : ViewModel() {
         }
     }
 
+    // LiveData representing whether or not data is loading
     fun isLoading(): LiveData<Boolean> {
         return _isLoading
     }
 
+    // LiveData representing the List of Product details
     fun getDeals(): MutableLiveData<Products> {
         // fetch the deals! Implement retrofit!
         return _dealsList
     }
 
+    /**
+     * Retrieves the list of products from a Retrofit service.
+     */
     private fun fetchDeals() {
         _isLoading.value = true
         val retrofit = Retrofit.Builder()
@@ -52,7 +55,6 @@ class ProductListViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<Products>, t: Throwable) {
-                // todo cancel the progress bar and then show a toast
                 _isLoading.value = false
                 _dealsList.value = null
                 Log.e(this.javaClass.name.toString(),

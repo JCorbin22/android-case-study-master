@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import java.lang.ClassCastException
 
-class ProductViewModelFactory(private val dealItem: Int) : ViewModelProvider.Factory {
+/**
+ * A ViewModel factory that provides an instance of the ProductDetailsViewModel with a parameterized
+ * constructor, allowing a product ID to be passed to the ViewModel in order to call the service.
+ */
+class ProductViewModelFactory(private val productId: Int) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         try {
-            return ProductDetailsViewModel(dealItem) as T
+            return ProductDetailsViewModel(productId) as T
         } catch (e: ClassCastException) {
             Log.e(this.javaClass.name, "Could not cast ViewModel")
             throw e
