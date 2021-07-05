@@ -21,7 +21,7 @@ class DealItemAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealItemViewHolder {
     val inflater = LayoutInflater.from(parent.context)
-    val view = inflater.inflate(R.layout.deal_list_item, parent, false)
+    val view = inflater.inflate(R.layout.product_list_item, parent, false)
     return DealItemViewHolder(view)
   }
 
@@ -61,10 +61,10 @@ class DealItemAdapter(
 }
 
 class DealItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-  var dealItemLayout: LinearLayoutCompat = itemView.findViewById(R.id.deal_list_item_layout)
-  var productTitleTextView: TextView = itemView.findViewById(R.id.deal_list_title_tv)
-  var productSalePriceTextView: TextView = itemView.findViewById(R.id.deal_list_price_tv)
-  var productAisleTextView: TextView = itemView.findViewById(R.id.deal_list_aisle_tv)
-  var productImageView: ImageView = itemView.findViewById(R.id.deal_list_item_image_view)
-  var productListDivider: View = itemView.findViewById(R.id.deal_list_item_divider_view)
+  var dealItemLayout: LinearLayoutCompat = itemView.findViewById(R.id.product_list_item_layout)
+  var productTitleTextView: TextView = itemView.findViewById(R.id.product_list_item_title_tv)
+  var productSalePriceTextView: TextView = itemView.findViewById(R.id.product_list_item_price_tv)
+  var productAisleTextView: TextView = itemView.findViewById(R.id.product_list_item_aisle_tv)
+  var productImageView: ImageView = itemView.findViewById(R.id.product_detail_image_view)
+  var productListDivider: View = itemView.findViewById(R.id.product_list_item_divider_view)
 }

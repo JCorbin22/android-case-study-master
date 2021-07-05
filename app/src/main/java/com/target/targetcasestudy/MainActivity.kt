@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.target.targetcasestudy.view.DealListFragment
-import com.target.targetcasestudy.ui.payment.PaymentDialogFragment
+import com.target.targetcasestudy.view.ProductListFragment
+import com.target.targetcasestudy.view.PaymentDialogFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     supportFragmentManager.beginTransaction()
-      .replace(R.id.container, DealListFragment())
+      .replace(R.id.container, ProductListFragment())
       .commit()
   }
 

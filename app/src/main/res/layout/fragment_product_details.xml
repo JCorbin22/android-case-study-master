@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/deal_details_item"
+    android:id="@+id/product_details_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+  <!-- product details layout -->
   <androidx.appcompat.widget.LinearLayoutCompat
       android:id="@+id/details_layout"
       android:layout_width="match_parent"
@@ -29,10 +30,11 @@
         android:orientation="vertical">
 
       <ImageView
-          android:id="@+id/deal_list_item_image_view"
+          android:id="@+id/product_detail_image_view"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"
+          android:contentDescription="@string/product_image"
           android:src="@drawable/ic_launcher_foreground" />
 
       <androidx.appcompat.widget.LinearLayoutCompat

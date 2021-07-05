@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.interfaces.IDealClickDelegate
 import com.target.targetcasestudy.model.Products
-import com.target.targetcasestudy.viewmodel.DealListViewModel
+import com.target.targetcasestudy.viewmodel.ProductListViewModel
 
-class DealListFragment : Fragment(), IDealClickDelegate {
+class ProductListFragment : Fragment(), IDealClickDelegate {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var progressBar: ProgressBar
@@ -26,7 +26,7 @@ class DealListFragment : Fragment(), IDealClickDelegate {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val view =  inflater.inflate(R.layout.fragment_deal_list, container, false)
+    val view =  inflater.inflate(R.layout.fragment_product_list, container, false)
     progressBar = view.findViewById(R.id.progress_bar)
     recyclerView = view.findViewById(R.id.recycler_view)
 
@@ -34,7 +34,7 @@ class DealListFragment : Fragment(), IDealClickDelegate {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    val viewModel: DealListViewModel by viewModels()
+    val viewModel: ProductListViewModel by viewModels()
     viewModel.isLoading().observe(this, this::updateProgressBar)
     viewModel.getDeals().observe(this, this::updateDealsList)
     super.onCreate(savedInstanceState)
@@ -65,7 +65,7 @@ class DealListFragment : Fragment(), IDealClickDelegate {
 
   override fun dealClicked(dealId: Int) {
     // launch fragment
-    val dealItemFragment = DealItemFragment().also {
+    val dealItemFragment = ProductDetailsFragment().also {
       it.arguments = bundleOf(Pair("dealId", dealId))
     }
     val fragmentManager = parentFragmentManager

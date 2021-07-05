@@ -18,18 +18,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.model.Product
-import com.target.targetcasestudy.viewmodel.DealItemViewModel
+import com.target.targetcasestudy.viewmodel.ProductDetailsViewModel
 import com.target.targetcasestudy.viewmodel.ProductViewModelFactory
 
-class DealItemFragment : DialogFragment() {
+class ProductDetailsFragment : DialogFragment() {
 
-  lateinit var progressBar: ProgressBar
-  lateinit var titleTextView: TextView
-  lateinit var salePriceTextView: TextView
-  lateinit var regPriceTextView: TextView
-  lateinit var regPriceLabel: TextView
-  lateinit var descriptionTextView: TextView
-  lateinit var productImageView: ImageView
+  private lateinit var progressBar: ProgressBar
+  private lateinit var titleTextView: TextView
+  private lateinit var salePriceTextView: TextView
+  private lateinit var regPriceTextView: TextView
+  private lateinit var regPriceLabel: TextView
+  private lateinit var descriptionTextView: TextView
+  private lateinit var productImageView: ImageView
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -46,7 +46,7 @@ class DealItemFragment : DialogFragment() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    val viewModel = ViewModelProvider(this, ProductViewModelFactory(arguments?.getInt("dealId")!!)).get(DealItemViewModel::class.java) // do something nicer
+    val viewModel = ViewModelProvider(this, ProductViewModelFactory(arguments?.getInt("dealId")!!)).get(ProductDetailsViewModel::class.java) // do something nicer
     viewModel.isLoading().observe(this, this::updateProgressBar)
     viewModel.getDeals().observe(this, this::updateProductDetails)
     super.onCreate(savedInstanceState)
@@ -57,14 +57,14 @@ class DealItemFragment : DialogFragment() {
     savedInstanceState: Bundle?
   ): View? {
     // Inflate the layout for this fragment
-    val view = inflater.inflate(R.layout.fragment_deal_item, container, false)
+    val view = inflater.inflate(R.layout.fragment_product_details, container, false)
     progressBar = view.findViewById(R.id.details_progress_bar)
     titleTextView = view.findViewById(R.id.product_detail_title_tv)
     salePriceTextView = view.findViewById(R.id.product_detail_sale_price_tv)
     regPriceTextView = view.findViewById(R.id.product_detail_reg_price_tv)
     regPriceLabel = view.findViewById(R.id.reg_price_label)
     descriptionTextView = view.findViewById(R.id.product_detail_desc_tv)
-    productImageView = view.findViewById(R.id.deal_list_item_image_view)
+    productImageView = view.findViewById(R.id.product_detail_image_view)
     return view
   }
 
@@ -92,6 +92,7 @@ class DealItemFragment : DialogFragment() {
         regPriceTextView.visibility = View.GONE
       }
 
+      productImageView.contentDescription = "Image of product ${product.title}"
       if(product.imageUrl != null) {
         Picasso.get().load(product.imageUrl)
           .placeholder(R.drawable.ic_launcher_foreground)

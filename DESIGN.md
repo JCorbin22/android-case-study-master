@@ -19,7 +19,7 @@ TO-DO List:
 3. Add Retrofit to project and create API service for both list and details **DONE**
 4. Use LiveData and retrieve the product list w/ Progress bar   **DONE**
 6. Update RCV to have dynamic image, and get from Model (might have to use a network image view to load a URL) **DONE**
-7. Format UI according to the comps
+7. Format UI according to the comps  **DONE**
 8. Handle taps on specific RecyclerView Items to go to Details **DONE**
 9. Get details loaded from service **DONE**
 10: Optional: Carts/Lists? Could use Room to cache the list items

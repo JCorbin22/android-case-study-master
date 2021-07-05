@@ -1,4 +1,4 @@
-package com.target.targetcasestudy.ui.payment
+package com.target.targetcasestudy.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
