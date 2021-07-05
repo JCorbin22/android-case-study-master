@@ -10,4 +10,7 @@
   <string name="product_ship_text">ship</string>
   <string name="product_or_text">or</string>
   <string name="product_image">Product Image</string>
+  <string name="add_to_cart">add to cart</string>
+  <string name="add_to_list">add to list</string>
+  <string name="regular_price_label">Reg:</string>
 </resources>
